@@ -5,11 +5,14 @@
  * and Node.js (better-sqlite3). The APIs are nearly identical — the main
  * difference is the import path.
  */
+import { Database } from "bun:sqlite";
 
 export const isBun = typeof globalThis.Bun !== "undefined";
 
 let _Database: any;
 let _sqliteVecLoad: (db: any) => void;
+
+Database.setCustomSQLite("/opt/homebrew/opt/sqlite/lib/libsqlite3.dylib");
 
 if (isBun) {
   // Dynamic string prevents tsc from resolving bun:sqlite on Node.js builds
